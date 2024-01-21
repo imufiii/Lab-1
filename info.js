@@ -12,11 +12,13 @@ document.addEventListener("DOMContentLoaded", function () {
     if (title !== "" && artist !== "") {
       const listItem = document.createElement("li");
 
-      listItem.innerHTML = `
-        <span class="title">${title}</span>
-        <br>
-        <span class="artist">${artist}</span>
-      `;
+      listItem.innerHTML = 
+      '<div>' +
+        '<span class="title">' + title + '</span>' +
+        '<br>' +
+        '<span class="artist">' + artist + '</span>' +
+      '</div>';
+    
 
       songList.appendChild(listItem);
 
