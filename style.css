@@ -76,7 +76,7 @@ h2{
 
 #songDeatils{
     list-style: none;
-
+    height:7rem;
     justify-content: center;
     align-items: center;
     padding: 0.5rem;
@@ -92,10 +92,22 @@ h2{
     transition: all 0.3s ease-in-out;
 }
 
-@meta screen and (max-width: 768px){
+@media screen and (min-width: 768px){
    .main{
     display: flex;
     flex-direction: row;
+   }
+   body{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(231, 231, 231);
+   }
+   .songDeatils{
+   border-radius: 0.5rem;
    }
 }
 
