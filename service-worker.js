@@ -1,7 +1,7 @@
-const cacheStorageName = 'cacheStorageAsset7';
+const cacheStorageName = 'cacheStorageAsset1.1';
 
 self.addEventListener('install',  (event) => {
-    console.log('Installed', event);
+  
     self.skipWaiting()
 
     event.waitUntil(
@@ -14,8 +14,9 @@ self.addEventListener('install',  (event) => {
                 '/images/icon.png',
                 '/manifest.json',
                 '/js/info.js',
-                '/icons/favicon-16x16.png',
-                '/icons/favicon-32x32.png',
+                'icons/favicon-16x16.png',
+                'icons/favicon-32x32.png',
+                '/offline.html',
                 '/js/script.js'
             ]);
         })
@@ -47,7 +48,7 @@ self.addEventListener('activate', function (event) {
 
 
 self.addEventListener('fetch', (event)=> {
-    console.log(event); 
+
     // event.respondWith(
     //     caches.match(event.request)
     //     .then(function (response) {
@@ -58,18 +59,42 @@ self.addEventListener('fetch', (event)=> {
     //     })
     // );
 
-    event.respondWith(
-        caches.open(cacheStorageName)
-        .then((cache) => {
-            return cache.match(event.request)
-            .then((cashedResponse) => {
-                const fetchResponse = fetch(event.request)
-                .then((networkResponse)=>{
-                    cache.put(event.request, networkResponse.clone());
-                    return networkResponse;
-                });
-                return cashedResponse || fetchResponse
+    // event.respondWith(
+        // caches.open(cacheStorageName)
+        // .then((cache) => {
+        //     return cache.match(event.request)
+        //     .then((cashedResponse) => {
+        //         const fetchResponse = fetch(event.request)
+        //         .then((networkResponse)=>{
+        //             cache.put(event.request, networkResponse.clone());
+        //             return networkResponse;
+        //         })
+        //         // .catch((error) => {
+                  
+        //         //     return caches.match('/offline.html');
+        //         // });
+        //         return cashedResponse || fetchResponse
                
+        //     });
+        // }));
+
+    event.respondWith(caches.open(cacheStorageName)
+        .then(function (cache) {
+            return cache.match(event.request)
+
+            .then(function (cachedResponse) {
+
+                const fetchedResponse = fetch(event.request)
+                .then(function (networkResponse) {
+                 cache.put(event.request, networkResponse.clone());
+                return networkResponse;
+            })
+            .catch(function (error) {
+                return caches.match('/offline.html');
             });
-        }));
+        return cachedResponse || fetchedResponse;
+        });
+    }));
+
+    
 });

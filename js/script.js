@@ -8,3 +8,11 @@ if ('serviceWorker' in navigator) {
             });
     }
 else{   console.log('Service workers are not supported.');  }
+
+window.addEventListener('online', function () {
+        console.log('You are online!');
+    });
+
+window.addEventListener('offline', function () {
+        console.log('Oh no, you lost your network connection.');
+    });
