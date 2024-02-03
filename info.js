@@ -10,13 +10,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const artist = document.getElementById("artist").value.trim();
 
     if (title !== "" && artist !== "") {
-      const listItem = document.createElement("li");
+      const listItem = document.createElement("ul");
+      // listItem.classList.add("song");
+
 
       listItem.innerHTML = 
-      '<div>' +
-        '<span class="title">' + title + '</span>' +
+      '<div class="song">' +
+
+        '<span class="title">Title: ' + title + '</span>' +
         '<br>' +
-        '<span class="artist">' + artist + '</span>' +
+        '<span class="artist">Artist: ' + artist + '</span>' +
       '</div>';
     
 
